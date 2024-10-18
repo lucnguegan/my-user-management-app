@@ -18,16 +18,19 @@ const firebaseConfig = {
   measurementId: "G-LQ6GBCVKV1"
 };
 
-const createUserWithRole = async (email, password, role) => {
+const createUserWithRole = async (email, password, role, firstName, lastName) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const uid = userCredential.user.uid;
   
-    // Ajouter l'utilisateur dans Firestore avec son rôle
+    // Ajouter l'utilisateur dans Firestore avec son rôle, prénom et nom
     await setDoc(doc(db, "users", uid), {
       email: email,
       role: role,
+      firstName: firstName,
+      lastName: lastName,
     });
   };
+  
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
